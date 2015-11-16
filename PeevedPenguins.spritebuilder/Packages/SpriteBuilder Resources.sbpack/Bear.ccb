@@ -448,13 +448,13 @@
 			<key>chainedSequenceId</key>
 			<integer>0</integer>
 			<key>length</key>
-			<real>10</real>
+			<real>2</real>
 			<key>name</key>
 			<string>ArmAnimation</string>
 			<key>offset</key>
 			<real>2.3157024383544922</real>
 			<key>position</key>
-			<real>3.5999999046325684</real>
+			<real>2</real>
 			<key>resolution</key>
 			<real>30</real>
 			<key>scale</key>
