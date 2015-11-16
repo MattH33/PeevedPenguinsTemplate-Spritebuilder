@@ -12,6 +12,7 @@
     
     CCPhysicsNode *_physicsNode;
     CCNode *_catapultArm;
+    CCNode *_levelNode;
     
 }
 
@@ -19,6 +20,10 @@
 - (void)didLoadFromCCB {
     // tell this scene to accept touches
     self.userInteractionEnabled = TRUE;
+    
+    //This will load level1 and add it as a child to the levelNode
+    CCScene *level = [CCBReader loadAsScene:@"Levels/Level1"];
+    [_levelNode addChild:level];
 }
 
 // called on every touch in this scene
