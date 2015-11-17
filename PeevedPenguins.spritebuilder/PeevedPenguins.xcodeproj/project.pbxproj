@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		348AB8281BFACB1900FB8AC9 /* WaitingPenguin.m in Sources */ = {isa = PBXBuildFile; fileRef = 348AB8271BFACB1900FB8AC9 /* WaitingPenguin.m */; };
 		34CB14C41BF9815E008407AB /* Penguin.m in Sources */ = {isa = PBXBuildFile; fileRef = 34CB14C31BF9815E008407AB /* Penguin.m */; };
 		34CB14CD1BF98178008407AB /* Seal.m in Sources */ = {isa = PBXBuildFile; fileRef = 34CB14CC1BF98178008407AB /* Seal.m */; };
 		34CB14D01BF98952008407AB /* Gameplay.m in Sources */ = {isa = PBXBuildFile; fileRef = 34CB14CF1BF98952008407AB /* Gameplay.m */; };
@@ -80,6 +81,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		348AB8261BFACB1900FB8AC9 /* WaitingPenguin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WaitingPenguin.h; path = Source/WaitingPenguin.h; sourceTree = "<group>"; };
+		348AB8271BFACB1900FB8AC9 /* WaitingPenguin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WaitingPenguin.m; path = Source/WaitingPenguin.m; sourceTree = "<group>"; };
 		34CB14C21BF9815E008407AB /* Penguin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Penguin.h; path = Source/Penguin.h; sourceTree = "<group>"; };
 		34CB14C31BF9815E008407AB /* Penguin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Penguin.m; path = Source/Penguin.m; sourceTree = "<group>"; };
 		34CB14CB1BF98178008407AB /* Seal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Seal.h; path = Source/Seal.h; sourceTree = "<group>"; };
@@ -165,6 +168,8 @@
 				34CB14CC1BF98178008407AB /* Seal.m */,
 				34CB14CE1BF98952008407AB /* Gameplay.h */,
 				34CB14CF1BF98952008407AB /* Gameplay.m */,
+				348AB8261BFACB1900FB8AC9 /* WaitingPenguin.h */,
+				348AB8271BFACB1900FB8AC9 /* WaitingPenguin.m */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -402,6 +407,7 @@
 			files = (
 				34CB14CD1BF98178008407AB /* Seal.m in Sources */,
 				B737893F1807617C0076A88C /* AppDelegate.m in Sources */,
+				348AB8281BFACB1900FB8AC9 /* WaitingPenguin.m in Sources */,
 				B7378994180767190076A88C /* MainScene.m in Sources */,
 				34CB14C41BF9815E008407AB /* Penguin.m in Sources */,
 				B73789871807631A0076A88C /* main.m in Sources */,
