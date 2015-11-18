@@ -12,6 +12,7 @@ static const float MIN_SPEED = 5.f;
 
 @implementation Gameplay {
     
+    //Connects objects from Spritebuilder to code variables.
     CCPhysicsNode *_physicsNode;
     CCNode *_catapultArm;
     CCNode *_levelNode;
@@ -25,17 +26,16 @@ static const float MIN_SPEED = 5.f;
     
 }
 
-// is called when CCB file has completed loading
 - (void)didLoadFromCCB {
     
-    // tell this scene to accept touches
+    //Tells this scene to accept touches.
     self.userInteractionEnabled = TRUE;
     
-    //This will load level1 and add it as a child to the levelNode
+    //This will load level1 and add it as a child to the levelNode.
     CCScene *level = [CCBReader loadAsScene:@"Levels/Level1"];
     [_levelNode addChild:level];
     
-    // nothing shall collide with our invisible nodes
+    //Ensures nothing will collide with the invisible nodes created in Spritebuilder.
     _pullbackNode.physicsBody.collisionMask = @[];
     _mouseJointNode.physicsBody.collisionMask = @[];
     
@@ -43,39 +43,42 @@ static const float MIN_SPEED = 5.f;
   
 }
 
-// called on every touch in this scene
 - (void)touchBegan:(CCTouch *)touch withEvent:(CCTouchEvent *)event
 {
     CGPoint touchLocation = [touch locationInNode:_contentNode];
     
-    // start catapult dragging when a touch inside of the catapult arm occurs
+    //Starts dragging the catapult arm when a touch inside of the catapult arm occurs.
     if (CGRectContainsPoint([_catapultArm boundingBox], touchLocation))
     {
-        // move the mouseJointNode to the touch position
+        //Moves the mouseJointNode to the touch position.
         _mouseJointNode.position = touchLocation;
         
-        // setup a spring joint between the mouseJointNode and the catapultArm
+        //Sets up a spring joint between the mouseJointNode and the catapultArm.
         _mouseJoint = [CCPhysicsJoint connectedSpringJointWithBodyA:_mouseJointNode.physicsBody bodyB:_catapultArm.physicsBody anchorA:ccp(0, 0) anchorB:ccp(34, 138) restLength:0.f stiffness:3000.f damping:150.f];
         
-        // create a penguin from the ccb-file
+        //Creates a penguin from the Spritebuilder file.
         _currentPenguin = (Penguin*)[CCBReader load:@"Penguin"];
-        // initially position it on the scoop. 34,138 is the position in the node space of the _catapultArm
+        
+        //Initially positions the penguin on the scoop.
         CGPoint penguinPosition = [_catapultArm convertToWorldSpace:ccp(34, 138)];
-        // transform the world position to the node space to which the penguin will be added (_physicsNode)
+        
+        //Transforms the world position to the physicsNode space to which the penguin will be added.
         _currentPenguin.position = [_physicsNode convertToNodeSpace:penguinPosition];
-        // add it to the physics world
+        
+        //Adds the penguin to the physics world.
         [_physicsNode addChild:_currentPenguin];
-        // we don't want the penguin to rotate in the scoop
+        
+        //Ensures the penguin doesn't rotate while it's in the scoop.
         _currentPenguin.physicsBody.allowsRotation = FALSE;
         
-        // create a joint to keep the penguin fixed to the scoop until the catapult is released
+        //Creates a joint to keep the penguin fixed to the scoop until the catapult is released.
         _penguinCatapultJoint = [CCPhysicsJoint connectedPivotJointWithBodyA:_currentPenguin.physicsBody bodyB:_catapultArm.physicsBody anchorA:_currentPenguin.anchorPointInPoints];
     }
 }
 
 - (void)touchMoved:(CCTouch *)touch withEvent:(CCTouchEvent *)event
 {
-    // whenever touches move, update the position of the mouseJointNode to the touch position
+    //Whenever touches move, this updates the position of the mouseJointNode to the touch position.
     CGPoint touchLocation = [touch locationInNode:_contentNode];
     _mouseJointNode.position = touchLocation;
 }
@@ -83,18 +86,18 @@ static const float MIN_SPEED = 5.f;
 - (void)releaseCatapult {
     if (_mouseJoint != nil)
     {
-        // releases the joint and lets the catapult snap back
+        //Releases the joint and lets the catapult snap forward.
         [_mouseJoint invalidate];
         _mouseJoint = nil;
         
-        // releases the joint and lets the penguin fly
+        //Releases the joint and lets the penguin fly.
         [_penguinCatapultJoint invalidate];
         _penguinCatapultJoint = nil;
         
-        // after snapping rotation is fine
+        //Allows rotation of the penguin after being released.
         _currentPenguin.physicsBody.allowsRotation = TRUE;
         
-        // follow the flying penguin
+        //Camera follows the flying penguin.
         _followPenguin = [CCActionFollow actionWithTarget:_currentPenguin worldBoundary:self.boundingBox];
         [_contentNode runAction:_followPenguin];
         
@@ -104,41 +107,43 @@ static const float MIN_SPEED = 5.f;
 
 -(void) touchEnded:(CCTouch *)touch withEvent:(CCTouchEvent *)event
 {
-    // when touches end, meaning the user releases their finger, release the catapult
+    //When touches end, release the catapult.
     [self releaseCatapult];
 }
 
 -(void) touchCancelled:(CCTouch *)touch withEvent:(CCTouchEvent *)event
 {
-    // when touches are cancelled, meaning the user drags their finger off the screen or onto something else, release the catapult
+    //When touches are cancelled, meaning the user drags their finger off the screen or onto something else, release the catapult.
     [self releaseCatapult];
 }
 
 - (void)launchPenguin {
-    // loads the Penguin.ccb we have set up in Spritebuilder
+    
+    //Loads the Penguin that was created in Spritebuilder.
     CCNode* penguin = [CCBReader load:@"Penguin"];
-    // position the penguin at the bowl of the catapult
+    
+    //Positions the penguin at the bowl of the catapult.
     penguin.position = ccpAdd(_catapultArm.position, ccp(16, 50));
     
-    // add the penguin to the physicsNode of this scene (because it has physics enabled)
+    //Adds the penguin to the physicsNode of this scene.
     [_physicsNode addChild:penguin];
     
-    // manually create & apply a force to launch the penguin
+    //Creates and applies a force to launch the penguin.
     CGPoint launchDirection = ccp(1, 0);
     CGPoint force = ccpMult(launchDirection, 8000);
     [penguin.physicsBody applyForce:force];
     
-    // ensure followed object is in visible are when starting
+    //Ensures the penguin is visible before the camera follows it.
     self.position = ccp(0, 0);
     CCActionFollow *follow = [CCActionFollow actionWithTarget:penguin worldBoundary:self.boundingBox];
     [_contentNode runAction:follow];
 }
 
+//If the energy created during a collision with a seal is large enough, remove the seal.
 -(void)ccPhysicsCollisionPostSolve:(CCPhysicsCollisionPair *)pair seal:(CCNode *)nodeA wildcard:(CCNode *)nodeB
 {
     float energy = [pair totalKineticEnergy];
     
-    // if energy is large enough, remove the seal
     if (energy > 5000.f) {
         [[_physicsNode space] addPostStepBlock:^{
             [self sealRemoved:nodeA];
@@ -148,19 +153,23 @@ static const float MIN_SPEED = 5.f;
 
 - (void)sealRemoved:(CCNode *)seal {
     
-    // load particle effect
+    //Loads the smoke particle effect created in Spritebuilder.
     CCParticleSystem *explosion = (CCParticleSystem *)[CCBReader load:@"SealExplosion"];
-    // make the particle effect clean itself up, once it is completed
+    
+    //Makes the particle effect clean itself up once completed.
     explosion.autoRemoveOnFinish = TRUE;
-    // place the particle effect on the seals position
+    
+    //Places the particle effect on the seal's position.
     explosion.position = seal.position;
-    // add the particle effect to the same node the seal is on
+    
+    //Adds the particle effect to the same node the seal is on.
     [seal.parent addChild:explosion];
     
-    // finally, remove the destroyed seal
+    //Removes the destroyed seal.
     [seal removeFromParent];
 }
 
+//Resets the camera position after the launched penguin's movement has slowed to a certain amount.
 - (void)nextAttempt {
     _currentPenguin = nil;
     [_contentNode stopAction:_followPenguin];
@@ -173,7 +182,6 @@ static const float MIN_SPEED = 5.f;
 {
     if (_currentPenguin.launched)
     {
-        // if speed is below minimum speed, assume this attempt is over
         if (ccpLength(_currentPenguin.physicsBody.velocity) < MIN_SPEED){
             [self nextAttempt];
             return;
@@ -195,8 +203,9 @@ static const float MIN_SPEED = 5.f;
     }
 }
 
+//Resets the level.
 - (void)retry {
-    // reload this level
+
     [[CCDirector sharedDirector] replaceScene: [CCBReader loadAsScene:@"Gameplay"]];
 }
 

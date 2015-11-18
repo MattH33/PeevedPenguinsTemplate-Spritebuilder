@@ -10,6 +10,7 @@
 
 @interface Penguin : CCSprite
 
+//Creates a variable that will tell whether or not a penguin has been launched.
 @property (nonatomic, assign) BOOL launched;
 
 @end

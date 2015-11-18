@@ -295,7 +295,7 @@
 				ORGANIZATIONNAME = Apportable;
 				TargetAttributes = {
 					B77F1B2D17B978D7009739AE = {
-						DevelopmentTeam = SBVP8ED765;
+						DevelopmentTeam = 74MDY5BL4J;
 						SystemCapabilities = {
 							com.apple.GameCenter = {
 								enabled = 0;
@@ -487,13 +487,14 @@
 					"\"Source/libs/cocos2d-iphone/external/ObjectAL\"/**",
 				);
 				INFOPLIST_FILE = Source/Resources/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-lsqlite3",
 					"-ObjC",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = MattH.PeevedPenguins;
 				PRODUCT_NAME = PeevedPenguins;
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -520,12 +521,13 @@
 					"\"Source/libs/cocos2d-iphone/external/ObjectAL\"/**",
 				);
 				INFOPLIST_FILE = Source/Resources/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-lsqlite3",
 					"-ObjC",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = MattH.PeevedPenguins;
 				PRODUCT_NAME = PeevedPenguins;
 				PROVISIONING_PROFILE = "";
 				VALIDATE_PRODUCT = YES;

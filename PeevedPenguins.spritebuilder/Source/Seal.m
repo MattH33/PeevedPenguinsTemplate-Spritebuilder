@@ -10,6 +10,7 @@
 
 @implementation Seal
 
+//Sets the collision type for the seals.
 - (void)didLoadFromCCB {
     self.physicsBody.collisionType = @"seal";
 }
