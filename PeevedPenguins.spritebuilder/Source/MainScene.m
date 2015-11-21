@@ -1,9 +1,9 @@
 //
 //  MainScene.m
-//  PROJECTNAME
+//  PeevedPenguins
 //
-//  Created by Viktor on 10/10/13.
-//  Copyright (c) 2013 Apportable. All rights reserved.
+//  Created by Matt H on 2015-11-15.
+//  Copyright © 2015 Apportable. All rights reserved.
 //
 
 #import "MainScene.h"
